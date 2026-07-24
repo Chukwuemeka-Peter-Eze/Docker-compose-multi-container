@@ -1053,6 +1053,7 @@ If you found this repository helpful or would like to discuss Docker, DevOps, Cl
 
 - **GitHub:** https://github.com/Chukwuemeka-Peter-Eze
 - **LinkedIn:** https://www.linkedin.com/in/chukwuemekapetereze/
+- **Notion:** https://lumpy-bubble-7b0.notion.site/Containers-with-Docker-3a546a96f97480a88041ff2ff82a6b5f?source=copy_link
 
 If you found this repository useful, consider giving it a ⭐ to support the project.
 
