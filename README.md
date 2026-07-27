@@ -1,4 +1,4 @@
-# Docker Compose Multi-Container Application on AWS
+# Docker Compose Multi-Container Application
 
 <p align="center">
 
@@ -6,8 +6,10 @@
 ![Docker Compose](https://img.shields.io/badge/Docker_Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white)
+![Mongo Express](https://img.shields.io/badge/Mongo_Express-47A248?style=for-the-badge)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 
 </p>
 
@@ -15,60 +17,116 @@
 
 # Project Overview
 
-This project demonstrates how to deploy and manage a multi-container application using Docker Compose on AWS.
+This repository documents the deployment and management of a **multi-container application** using **Docker Compose**.
 
-Instead of manually creating and managing individual Docker containers, Docker Compose allows multiple related services to be defined in a single configuration file and deployed together as a complete application stack.
-
-The project includes three primary services:
+The project consists of three independent services that work together as a single application stack:
 
 - Node.js Application
 - MongoDB Database
 - Mongo Express Web Interface
 
-Docker Compose automatically creates a shared network for these services, enabling secure communication using service names rather than manually configured IP addresses.
+Rather than creating and managing each container individually with multiple `docker run` commands, Docker Compose allows the entire application stack to be defined declaratively in a single `docker-compose.yml` file.
 
-This repository documents the complete deployment workflow, architecture, Docker Compose configuration, networking concepts, service orchestration, troubleshooting process, and lessons learned while building and managing a multi-container application.
+With a single command, Docker Compose automatically:
+
+- Creates the required Docker network
+- Pulls required images
+- Creates each container
+- Configures networking between services
+- Starts every service
+- Simplifies application lifecycle management
+
+This project was implemented and tested entirely on a **local development machine** using Docker Desktop and Docker Compose.
+
+---
+
+## Project Highlights
+
+- Deployed a three-service application using Docker Compose.
+- Connected containers through an isolated Docker network.
+- Configured inter-service communication using service discovery.
+- Verified application functionality through browser-based testing.
+- Documented the complete deployment workflow.
+
+---
+
+## Project Information
+
+| Category | Details |
+|----------|---------|
+| Project | Docker Compose Multi-Container Application |
+| Project Type | Local Development |
+| Architecture | Multi-Container |
+| Runtime | Docker Engine |
+| Orchestration | Docker Compose |
+| Backend | Node.js |
+| Database | MongoDB |
+| Database UI | Mongo Express |
+| Platform | Local Machine |
+| Status | Completed |
 
 ---
 
 # Project Objectives
 
-The objectives of this project were to:
+The primary objectives of this project were to:
 
 - Understand Docker Compose architecture.
-- Deploy multiple services using a single Compose file.
-- Configure MongoDB as the application's database.
-- Deploy Mongo Express for database management.
-- Connect the Node.js application to MongoDB.
-- Learn Docker service discovery.
-- Understand Docker networking.
-- Simplify multi-container deployments.
+- Deploy multiple containers using a single configuration file.
+- Learn how services communicate within a Docker network.
+- Deploy a Node.js application using Docker Compose.
+- Deploy MongoDB as the application's database.
+- Deploy Mongo Express for database administration.
+- Configure environment variables.
+- Understand Docker service discovery.
+- Practice container lifecycle management.
 - Document the complete engineering workflow.
+
+---
+
+## Features
+
+- Multi-container deployment
+- Automatic service discovery
+- Docker networking
+- Node.js backend
+- MongoDB database
+- Mongo Express interface
+- Environment variable configuration
+- Simple application lifecycle management
 
 ---
 
 # Why Docker Compose?
 
-As applications grow, they often consist of multiple services instead of a single container.
+Modern applications rarely consist of a single container.
 
-For example:
+A typical application may include:
 
 - Backend API
 - Database
 - Cache
 - Message Queue
-- Monitoring Tools
 - Reverse Proxy
+- Monitoring Tools
 
-Managing each service individually with `docker run` quickly becomes difficult and error-prone.
+Managing every service individually quickly becomes difficult.
 
-Docker Compose solves this problem by allowing the entire application stack to be described in a single `docker-compose.yml` file. With one command, every required service can be started, stopped, or recreated together.
+Docker Compose simplifies this process by allowing all related services to be described in one YAML configuration file.
+
+Instead of running multiple Docker commands manually, the complete application can be started using:
+
+```bash
+docker compose up -d
+```
+
+Docker Compose automatically provisions and manages every service required by the application.
 
 ---
 
 # Project Architecture
 
-This project consists of three containers working together.
+The application consists of three containers that communicate through a Docker Compose network.
 
 ```text
                 User
@@ -86,7 +144,7 @@ This project consists of three containers working together.
           Mongo Express
 ```
 
-All communication between services occurs through the Docker network automatically created by Docker Compose.
+Docker Compose automatically creates an isolated bridge network, allowing services to communicate securely using their service names.
 
 ---
 
@@ -94,15 +152,14 @@ All communication between services occurs through the Docker network automatical
 
 | Technology | Purpose |
 |------------|---------|
-| Docker | Container Runtime |
-| Docker Compose | Multi-container orchestration |
+| Docker Engine | Container Runtime |
+| Docker Compose | Multi-container Orchestration |
 | Node.js | Backend Application |
 | MongoDB | NoSQL Database |
 | Mongo Express | Database Administration Interface |
-| AWS EC2 | Cloud Compute Environment |
-| Ubuntu Linux | Operating System |
 | Git | Version Control |
 | GitHub | Repository Hosting |
+| Linux | Development Environment |
 
 ---
 
@@ -112,60 +169,17 @@ This project demonstrates practical experience with:
 
 - Docker Compose
 - Multi-container deployments
-- Service orchestration
 - Docker networking
 - Container communication
+- Service discovery
+- Node.js deployment
 - MongoDB deployment
 - Mongo Express deployment
-- Node.js deployment
-- AWS EC2
-- Infrastructure documentation
+- Environment variable management
+- Docker CLI
 - Docker Compose CLI
-- Docker troubleshooting
-- Linux administration
-
----
-
-# Architecture Diagram
-
-> Replace the placeholder below after creating your Draw.io diagram.
-
-```text
-images/architecture.png
-```
-
-<p align="center">
-
-![Architecture Diagram](images/architecture.png)
-
-</p>
-
----
-
-# High-Level Workflow
-
-```text
-Developer
-      │
-      ▼
-GitHub Repository
-      │
-      ▼
-AWS EC2 Instance
-      │
-      ▼
-Docker Compose
-      │
- ┌────┼───────────────┐
- ▼    ▼               ▼
-Node MongoDB   Mongo Express
- │      │              │
- └──────┴──────────────┘
-        Docker Network
-             │
-             ▼
-       Web Browser
-```
+- Troubleshooting containerized applications
+- Infrastructure documentation
 
 ---
 
@@ -188,6 +202,10 @@ Docker-compose-multi-container
 │
 ├── docs/
 │   ├── setup.md
+│   ├── networking.md
+|   |── docker-compose-explained.md
+|   |── environmental-variables.md
+|   |── service-discovery.md
 │   ├── troubleshooting.md
 │   └── lessons-learned.md
 │
@@ -196,11 +214,11 @@ Docker-compose-multi-container
 │   ├── compose-file.png
 │   ├── compose-up.png
 │   ├── running-containers.png
-│   ├── mongo-express.png
+│   ├── docker-network.png
 │   ├── mongodb.png
+│   ├── mongo-express.png
 │   ├── node-app.png
 │   ├── browser.png
-│   ├── docker-network.png
 │   └── docker-logs.png
 │
 ├── commands.md
@@ -210,193 +228,85 @@ Docker-compose-multi-container
 
 ---
 
-# Learning Outcomes
-
-By completing this project, I gained practical experience in:
-
-- Managing multiple containers as a single application stack.
-- Defining infrastructure using a Docker Compose configuration.
-- Understanding Docker service discovery.
-- Configuring container networking.
-- Connecting backend applications to databases.
-- Simplifying deployment through automation.
-- Deploying containerized applications on AWS.
-- Documenting engineering workflows for reproducibility.
-
----
-
----
-
 # Prerequisites
 
-Before deploying the multi-container application, ensure the following requirements are available.
+Before running this project, ensure the following software is installed on your local machine.
 
-| Requirement | Description |
-|-------------|-------------|
-| AWS Account | Cloud environment for hosting the application |
-| Amazon EC2 Instance | Linux virtual machine |
-| Ubuntu Linux | Operating System |
-| Docker Engine | Container Runtime |
-| Docker Compose | Multi-container orchestration tool |
+| Requirement | Purpose |
+|-------------|---------|
+| Docker Desktop (or Docker Engine) | Container Runtime |
+| Docker Compose | Multi-container orchestration |
 | Git | Version Control |
-| SSH Client | Remote server access |
-| Web Browser | Accessing the application and Mongo Express |
+| Visual Studio Code (Optional) | Code Editor |
+| Web Browser | Accessing the application |
 
 ---
 
-# Environment Details
+# Development Environment
 
-The project was implemented using the following environment.
+This project was completed using the following environment.
 
 | Component | Value |
 |-----------|-------|
-| Cloud Provider | Amazon Web Services (AWS) |
-| Compute Service | Amazon EC2 |
-| Operating System | Ubuntu Linux |
+| Development Environment | Local Machine |
 | Container Runtime | Docker Engine |
 | Orchestration Tool | Docker Compose |
 | Backend Application | Node.js |
 | Database | MongoDB |
-| Database UI | Mongo Express |
+| Database Administration | Mongo Express |
 | Version Control | Git |
 | Repository Hosting | GitHub |
 
 ---
 
-# Multi-Container Architecture
+# High-Level Workflow
 
-Unlike a single-container deployment, this project consists of multiple services working together as one application stack.
-
-Each service has a specific responsibility.
+The following diagram illustrates the overall deployment workflow.
 
 ```text
-                Web Browser
-                     │
-                     ▼
-            Node.js Application
-                     │
-                     ▼
-                 MongoDB
-                     ▲
-                     │
-             Mongo Express
-
-          Docker Compose Network
-```
-
-Docker Compose automatically creates a private network that allows these services to communicate securely using service names.
-
----
-
-# Why Docker Compose?
-
-Running several containers individually using multiple `docker run` commands quickly becomes difficult to manage.
-
-Docker Compose addresses this by allowing all services to be declared in a single YAML configuration file.
-
-Benefits include:
-
-- Single command deployment
-- Automatic networking
-- Service discovery
-- Centralized configuration
-- Easier maintenance
-- Simplified troubleshooting
-- Improved reproducibility
-
----
-
-# Understanding docker-compose.yml
-
-The `docker-compose.yml` file defines the entire application stack.
-
-Typical sections include:
-
-- Services
-- Networks
-- Volumes
-- Environment Variables
-- Port Mappings
-- Restart Policies
-- Container Names
-
-Each service is described declaratively, allowing Docker Compose to create and manage the containers automatically.
-
----
-
-# Application Services
-
-## Node.js Application
-
-Responsibilities:
-
-- Serves application requests
-- Connects to MongoDB
-- Exposes the application through a browser
-
----
-
-## MongoDB
-
-Responsibilities:
-
-- Stores application data
-- Persists collections and documents
-- Receives requests from the Node.js application
-
----
-
-## Mongo Express
-
-Responsibilities:
-
-- Provides a web interface
-- Allows database inspection
-- Enables collection management
-- Simplifies testing and verification
-
----
-
-# Project Workflow
-
-The deployment followed this workflow.
-
-```text
+Developer
+     │
+     ▼
 Clone Repository
-        │
-        ▼
+     │
+     ▼
 Review docker-compose.yml
-        │
-        ▼
-Start Docker Compose
-        │
-        ▼
-Create Docker Network
-        │
-        ▼
-Start MongoDB
-        │
-        ▼
-Start Mongo Express
-        │
-        ▼
-Start Node.js Application
-        │
-        ▼
-Verify Containers
-        │
-        ▼
-Access Browser
-        │
-        ▼
-Test Database Connectivity
+     │
+     ▼
+Docker Compose
+     │
+ ┌───┼──────────────┐
+ ▼   ▼              ▼
+Node MongoDB   Mongo Express
+ │      │             │
+ └──────┴─────────────┘
+      Docker Network
+             │
+             ▼
+      Web Browser
 ```
+
+---
+
+# Learning Outcomes
+
+By completing this project, I gained hands-on experience with:
+
+- Building multi-container applications.
+- Managing services using Docker Compose.
+- Configuring Docker networking.
+- Understanding service discovery.
+- Connecting backend applications to databases.
+- Managing environment variables.
+- Verifying container communication.
+- Troubleshooting Docker Compose deployments.
+- Documenting engineering workflows for reproducibility.
 
 ---
 
 # Clone the Repository
 
-Clone the repository onto the EC2 instance.
+Clone the repository to your local machine.
 
 ```bash
 git clone https://github.com/Chukwuemeka-Peter-Eze/Docker-compose-multi-container.git
@@ -412,46 +322,65 @@ cd Docker-compose-multi-container
 
 # Verify the Project Structure
 
-Before deployment, verify that the repository contains the required files.
+Before deploying the application, verify that the repository contains the required project files.
 
-Example:
-
-```text
-Docker-compose-multi-container/
-
-docker-compose.yml
-
-README.md
-
-Node.js Application
-
-images/
-
-docs/
-```
-
----
-
-# Review the Compose File
-
-Inspect the configuration before deployment.
+Run:
 
 ```bash
-cat docker-compose.yml
+ls
 ```
 
-The Compose file should define:
+You should see files similar to:
 
-- Node.js service
-- MongoDB service
-- Mongo Express service
-- Port mappings
-- Environment variables
-- Docker network
+```text
+README.md
+docker-compose.yml
+app/
+images/
+docs/
+architecture/
+LICENSE
+.gitignore
+```
 
 ---
 
-## Screenshot Placeholder — Docker Compose File
+## Image: Project Structure
+
+```text
+images/project-structure.png
+```
+
+<p align="center">
+
+![Project Structure](images/project-structure.png)
+
+</p>
+
+---
+
+# Review the Docker Compose Configuration
+
+Before starting the application stack, inspect the Docker Compose configuration file.
+
+```bash
+cat docker-compose.yaml
+```
+
+The configuration file defines the complete application stack, including:
+
+- Application services
+- Docker images
+- Port mappings
+- Environment variables
+- Networks
+- Restart policies
+
+Understanding the Compose file before deployment helps verify that each service is configured correctly.
+
+---
+
+## Image: Docker Compose Configuration
 
 ```text
 images/compose-file.png
@@ -465,28 +394,28 @@ images/compose-file.png
 
 ---
 
-# Deploy the Application Stack
+# Deploy the Multi-Container Application
 
-Start all services.
+Start the complete application stack.
 
 ```bash
 docker compose up -d
 ```
 
-Docker Compose automatically performs the following operations:
+Docker Compose automatically performs the following tasks:
 
-- Reads the Compose configuration
-- Creates the Docker network
-- Pulls required images (if needed)
-- Creates all containers
-- Connects services to the shared network
+- Reads the `docker-compose.yml` file
+- Pulls required images (if not already available)
+- Creates the application network
+- Creates each container
+- Configures networking
 - Starts every service in detached mode
 
-Unlike managing containers individually, a single command deploys the complete application stack.
+Using Docker Compose, the complete application is deployed with a single command.
 
 ---
 
-## Screenshot Placeholder — Docker Compose Up
+## Image: Docker Compose Up
 
 ```text
 images/compose-up.png
@@ -500,30 +429,30 @@ images/compose-up.png
 
 ---
 
-# Verify Running Services
+# Verify Running Containers
 
-Display the running containers.
+List all running containers.
 
 ```bash
 docker ps
 ```
 
-Expected services include:
+Verify that the following containers are running:
 
 - Node.js Application
 - MongoDB
 - Mongo Express
 
-Verify:
+Confirm that:
 
-- All containers are running
-- Port mappings are correct
-- Container names are accurate
-- No unexpected restarts are occurring
+- All containers are in the **Up** state.
+- Port mappings are correct.
+- Container names match the Docker Compose configuration.
+- No unexpected restarts are occurring.
 
 ---
 
-## Screenshot Placeholder — Running Containers
+## Image: Running Containers
 
 ```text
 images/running-containers.png
@@ -537,27 +466,70 @@ images/running-containers.png
 
 ---
 
-# Verify Docker Network
+# Verify Docker Compose Services
 
-Docker Compose automatically creates a dedicated bridge network for the application.
+Display all services managed by Docker Compose.
 
-Display available networks.
+```bash
+docker compose ps
+```
+
+This command provides additional information such as:
+
+- Service names
+- Current status
+- Published ports
+- Container names
+
+---
+
+## Image: Docker Compose Services
+
+```text
+images/compose-ps.png
+```
+
+<p align="center">
+
+![Docker Compose Services](images/compose-ps.png)
+
+</p>
+
+---
+
+# Verify Docker Networks
+
+List all Docker networks.
 
 ```bash
 docker network ls
 ```
 
-Inspect the project network.
+Docker Compose reads the configuration file, provisions the required resources, creates the containers, and starts the complete application stack.
+
+---
+
+Inspect the network.
 
 ```bash
 docker network inspect <network-name>
 ```
 
-The inspection output should confirm that the Node.js, MongoDB, and Mongo Express containers are attached to the same network.
+Replace `<network-name>` with your actual Docker Compose network name.
+
+Verify that all application containers are attached to the same network.
+
+Expected containers include:
+
+- Node.js
+- MongoDB
+- Mongo Express
+
+This shared network enables the services to communicate using their service names instead of IP addresses.
 
 ---
 
-## Screenshot Placeholder — Docker Network
+## Image: Docker Network
 
 ```text
 images/docker-network.png
@@ -571,20 +543,58 @@ images/docker-network.png
 
 ---
 
-# Access Mongo Express
+# Access the Node.js Application
 
-Open your browser and navigate to the Mongo Express interface using the mapped host port.
+Open a web browser and navigate to the application.
 
-From here you can:
+Example:
 
-- Browse databases
-- View collections
-- Verify connectivity
-- Confirm that MongoDB is operational
+```text
+http://localhost:3000
+```
+
+Successful access confirms that:
+
+- The Node.js container is running.
+- Port mapping is functioning correctly.
+- The application is accessible from the host machine.
+- Docker Compose deployed the application successfully.
 
 ---
 
-## Screenshot Placeholder — Mongo Express
+## Image: Node.js Application
+
+```text
+images/node-app.png
+```
+
+<p align="center">
+
+![Node.js Application](images/node-app.png)
+
+</p>
+
+---
+
+# Access Mongo Express
+
+Open the Mongo Express web interface.
+
+Example:
+
+```text
+http://localhost:8081
+```
+
+From the Mongo Express dashboard, verify that:
+
+- MongoDB is running.
+- The application successfully connected to the database.
+- Collections and databases are visible.
+
+---
+
+## Image: Mongo Express
 
 ```text
 images/mongo-express.png
@@ -598,28 +608,28 @@ images/mongo-express.png
 
 ---
 
-# Access the Node.js Application
+# Verify Browser Access
 
-Open the Node.js application using your EC2 public IP address and the configured application port.
+Open both the Node.js application and Mongo Express in your browser to confirm that every service in the application stack is functioning correctly.
 
-Successful access confirms that:
+Successful verification demonstrates that:
 
-- Docker Compose deployed the application correctly.
-- The Node.js service is operational.
-- Networking between services is functioning.
-- The application can communicate with MongoDB.
+- Docker Compose deployed all services successfully.
+- Networking between containers is operational.
+- Port mappings are correctly configured.
+- The application stack is fully functional.
 
 ---
 
-## Screenshot Placeholder — Node.js Application
+## Image: Browser Verification
 
 ```text
-images/node-app.png
+images/browser.png
 ```
 
 <p align="center">
 
-![Node Application](images/node-app.png)
+![Browser Verification](images/browser.png)
 
 </p>
 
@@ -629,85 +639,128 @@ images/node-app.png
 
 At this stage, the following objectives have been successfully completed:
 
-- Docker Compose configuration reviewed
-- Multi-container application stack deployed
-- Shared Docker network created
-- MongoDB service started
-- Mongo Express service started
-- Node.js application started
-- Container communication verified
-- Browser access confirmed
+- Repository cloned successfully.
+- Docker Compose configuration reviewed.
+- Multi-container application deployed.
+- Docker network created automatically.
+- Node.js application started.
+- MongoDB database started.
+- Mongo Express started.
+- Container networking verified.
+- Browser access confirmed.
+- Application stack validated.
 
-This deployment demonstrates how Docker Compose simplifies the management of interconnected services by treating them as a single, cohesive application.
+The project is now fully operational and ready for further inspection, troubleshooting, and lifecycle management using Docker Compose.
 
 ---
 
+# Understanding the Docker Compose Configuration
+
+The `docker-compose.yml` file is the heart of this project. It defines the complete application stack in a declarative format, allowing Docker Compose to create and manage all required services automatically.
+
+Instead of manually creating individual containers with multiple `docker run` commands, Docker Compose uses a single YAML file to describe how the application should be deployed.
+
+A typical Docker Compose configuration includes:
+
+- Services
+- Docker images
+- Port mappings
+- Environment variables
+- Networks
+- Volumes (optional)
+- Restart policies
+
+This approach makes deployments consistent, repeatable, and easier to maintain.
+
 ---
 
-# Understanding Docker Compose Services
+# Application Services
 
-A Docker Compose application is organized around **services**.
+This project consists of three services that work together as a complete application stack.
 
-Each service represents a container that performs a specific responsibility within the application.
-
-In this project, three services work together to provide a complete application stack.
-
-| Service | Responsibility |
-|----------|----------------|
+| Service | Purpose |
+|----------|---------|
 | Node.js | Backend application |
-| MongoDB | Database |
-| Mongo Express | Database administration interface |
+| MongoDB | NoSQL database |
+| Mongo Express | Web-based MongoDB administration interface |
 
-Each service is isolated in its own container but communicates with the others through the Docker Compose network.
+Each service runs inside its own container while communicating with the others through Docker Compose's automatically created network.
 
 ---
 
-# Service Dependencies
+# Service Responsibilities
 
-The relationship between the services can be visualized as follows.
+## Node.js Application
+
+The Node.js container is responsible for:
+
+- Serving application requests
+- Processing application logic
+- Connecting to MongoDB
+- Returning responses to users
+
+---
+
+## MongoDB
+
+MongoDB serves as the application's database.
+
+Responsibilities include:
+
+- Storing application data
+- Managing collections and documents
+- Responding to database queries
+- Persisting application information
+
+---
+
+## Mongo Express
+
+Mongo Express provides a browser-based interface for MongoDB.
+
+It allows developers to:
+
+- Browse databases
+- View collections
+- Inspect stored documents
+- Verify database connectivity
+- Simplify testing during development
+
+---
+
+# How the Services Communicate
+
+Although each service runs in a separate container, they function as one application because Docker Compose automatically connects them to the same network.
 
 ```text
-             User
-               │
-               ▼
-        Node.js Application
-               │
-               ▼
-            MongoDB
-               ▲
-               │
-        Mongo Express
+Browser
+    │
+    ▼
+Node.js
+    │
+    ▼
+MongoDB
+    ▲
+    │
+Mongo Express
 ```
 
-The Node.js application stores and retrieves data from MongoDB, while Mongo Express provides a graphical interface for inspecting and managing the database.
+This architecture keeps each service isolated while allowing secure communication between containers.
 
 ---
 
 # Docker Compose Networking
 
-One of Docker Compose's most valuable features is automatic networking.
+One of Docker Compose's most powerful features is automatic networking.
 
-When the application stack is started, Docker Compose automatically:
+When the application starts, Docker Compose automatically:
 
 - Creates a dedicated bridge network
 - Connects every service to that network
-- Configures internal DNS
-- Enables secure communication between containers
+- Configures internal DNS resolution
+- Enables communication using service names
 
-Because of this, containers communicate using service names instead of IP addresses.
-
-For example:
-
-```text
-Node.js
-     │
-     ▼
-mongodb:27017
-```
-
-Instead of using changing IP addresses, the application can simply reference the MongoDB service by its service name.
-
-This makes deployments more portable and easier to maintain.
+No manual network configuration is required.
 
 ---
 
@@ -715,70 +768,77 @@ This makes deployments more portable and easier to maintain.
 
 Docker Compose includes built-in service discovery.
 
-For example:
+Instead of connecting to another container using an IP address, containers communicate using their service names.
 
-```yaml
-services:
-  mongodb:
-
-  node-app:
-```
-
-The Node.js application can connect to MongoDB using:
+For example, the Node.js application connects to MongoDB using:
 
 ```text
 mongodb
 ```
 
-rather than:
+instead of:
 
 ```text
-172.18.0.2
+172.18.0.5
 ```
 
-This eliminates the need to manually manage container IP addresses.
+Because Docker Compose manages DNS resolution automatically, service names remain consistent even if container IP addresses change.
+
+This improves portability and simplifies application configuration.
 
 ---
 
 # Environment Variables
 
-Environment variables provide configuration values to containers without modifying application code.
+Environment variables provide configuration values to containers without requiring changes to the application source code.
 
-Examples include:
+Common examples include:
 
-- Database usernames
-- Database passwords
-- Database names
-- Application ports
+- Database username
+- Database password
+- Database name
+- Application port
 - Runtime configuration
 
-Separating configuration from application logic improves security, portability, and maintainability.
+Using environment variables helps separate configuration from application logic, making deployments more secure and easier to manage.
 
 ---
 
 # Container Lifecycle Management
 
-Docker Compose manages the entire lifecycle of the application stack.
+Docker Compose manages the complete lifecycle of the application stack.
 
-Start all services.
+Start all services:
 
 ```bash
 docker compose up -d
 ```
 
-Stop all services.
+Stop all services:
 
 ```bash
 docker compose down
 ```
 
-Restart the application stack.
+Restart the application stack:
 
 ```bash
 docker compose restart
 ```
 
-These commands eliminate the need to start or stop containers individually.
+Start a specific service:
+
+```bash
+docker compose start mongodb
+```
+
+Stop a specific service:
+
+```bash
+docker compose stop mongodb
+```
+
+These commands simplify administration by allowing the entire application or individual services to be managed from a single interface.
 
 ---
 
@@ -790,24 +850,26 @@ Display running containers.
 docker ps
 ```
 
-Display Docker Compose services.
+Display services managed by Docker Compose.
 
 ```bash
 docker compose ps
 ```
 
-Verify that:
+These commands help verify:
 
-- All services are running
-- Container names are correct
-- Port mappings are correct
-- No unexpected restarts are occurring
+- Running status
+- Published ports
+- Container names
+- Service health
 
 ---
 
 # Viewing Logs
 
-Display logs for all services.
+Logs provide valuable information about container startup, runtime activity, and troubleshooting.
+
+Display logs for every service.
 
 ```bash
 docker compose logs
@@ -816,11 +878,11 @@ docker compose logs
 Display logs for a specific service.
 
 ```bash
+docker compose logs node-app
+
 docker compose logs mongodb
 
 docker compose logs mongo-express
-
-docker compose logs node-app
 ```
 
 Follow logs in real time.
@@ -829,16 +891,16 @@ Follow logs in real time.
 docker compose logs -f
 ```
 
-Logs are useful for:
+Logs are commonly used to:
 
-- Startup verification
-- Runtime monitoring
-- Error diagnosis
-- Troubleshooting
+- Verify successful startup
+- Diagnose application errors
+- Monitor service activity
+- Troubleshoot connectivity issues
 
 ---
 
-## Screenshot Placeholder — Logs
+## Image: Docker Logs
 
 ```text
 images/docker-logs.png
@@ -854,38 +916,40 @@ images/docker-logs.png
 
 # Accessing Running Containers
 
-Open an interactive shell inside a container.
+Sometimes it is necessary to open an interactive shell inside a running container for inspection or troubleshooting.
 
-Node.js
+Node.js container:
 
 ```bash
 docker exec -it node-app sh
 ```
 
-MongoDB
+MongoDB container:
 
 ```bash
 docker exec -it mongodb bash
 ```
 
-Mongo Express
+Mongo Express container:
 
 ```bash
 docker exec -it mongo-express sh
 ```
 
-Interactive access helps with:
+Interactive container access is useful for:
 
 - Inspecting files
-- Debugging applications
-- Verifying installed packages
 - Running diagnostic commands
+- Verifying installed software
+- Debugging application behavior
 
 ---
 
 # Inspecting Docker Resources
 
-Inspect a container.
+Docker provides inspection commands that display detailed configuration information.
+
+Inspect the Node.js container.
 
 ```bash
 docker inspect node-app
@@ -897,35 +961,63 @@ Inspect the Docker network.
 docker network inspect <network-name>
 ```
 
-List Docker volumes.
+List available Docker volumes.
 
 ```bash
 docker volume ls
 ```
 
-Inspect a volume.
+Inspect a specific volume.
 
 ```bash
 docker volume inspect <volume-name>
 ```
 
-These commands provide detailed information about container configuration, networking, and persistent storage.
+These commands provide detailed information about:
+
+- Container configuration
+- Network settings
+- Mounted volumes
+- Runtime metadata
+
+---
+
+# Useful Docker Compose Commands
+
+The following commands were frequently used while working on this project.
+
+| Command | Purpose |
+|---------|---------|
+| `docker compose up -d` | Start the application stack |
+| `docker compose down` | Stop and remove the application stack |
+| `docker compose restart` | Restart all services |
+| `docker compose ps` | Display Compose services |
+| `docker compose logs` | Display logs for all services |
+| `docker compose logs -f` | Follow logs in real time |
+| `docker compose stop` | Stop services |
+| `docker compose start` | Start stopped services |
+| `docker ps` | List running containers |
+| `docker network ls` | List Docker networks |
+| `docker network inspect` | Inspect a Docker network |
+| `docker inspect` | Inspect a container |
 
 ---
 
 # Screenshot Gallery
 
-Replace each placeholder with the corresponding screenshot from your implementation.
+The following screenshots document the implementation process.
 
 | Activity | Screenshot |
 |----------|------------|
+| Clone Repository | `images/git-clone.png` |
+| Project Structure | `images/project-structure.png` |
 | Docker Compose Configuration | `images/compose-file.png` |
-| Deploying the Stack | `images/compose-up.png` |
+| Docker Compose Up | `images/compose-up.png` |
 | Running Containers | `images/running-containers.png` |
+| Docker Compose Services | `images/compose-ps.png` |
 | Docker Network | `images/docker-network.png` |
-| MongoDB Running | `images/mongodb.png` |
-| Mongo Express Interface | `images/mongo-express.png` |
 | Node.js Application | `images/node-app.png` |
+| Mongo Express | `images/mongo-express.png` |
 | Browser Verification | `images/browser.png` |
 | Docker Logs | `images/docker-logs.png` |
 
@@ -933,128 +1025,233 @@ Replace each placeholder with the corresponding screenshot from your implementat
 
 # Challenges Encountered
 
-During implementation, several common issues were identified and resolved.
-
-## Containers Failed to Start
-
-Possible causes:
-
-- Incorrect service configuration
-- Missing environment variables
-- Image download failures
-
-Resolution:
-
-- Reviewed the Compose configuration.
-- Verified environment variables.
-- Restarted the application stack.
+During the implementation of this project, several common issues were encountered and resolved. Troubleshooting these problems provided a deeper understanding of Docker Compose, container networking, and multi-container application management.
 
 ---
 
-## Service Communication Problems
+## Container Startup Failures
 
-Possible causes:
+### Possible Causes
+
+- Incorrect Docker Compose configuration
+- Invalid environment variables
+- Missing Docker images
+- Syntax errors in the Compose file
+
+### Resolution
+
+- Reviewed the `docker-compose.yml` file.
+- Verified service definitions.
+- Confirmed environment variable values.
+- Checked container logs for detailed error messages.
+
+---
+
+## Service Communication Issues
+
+### Possible Causes
 
 - Incorrect service names
-- Containers not attached to the same network
-- Application configuration errors
+- Containers not connected to the same Docker network
+- Incorrect application configuration
 
-Resolution:
+### Resolution
 
-- Verified Docker network.
-- Confirmed service names.
-- Checked application configuration.
+- Verified the Docker Compose network.
+- Confirmed that all containers were attached to the same network.
+- Used Docker Compose service names instead of container IP addresses.
 
 ---
 
 ## Port Conflicts
 
-Possible causes:
+### Possible Causes
 
-- Another application already using the mapped port.
+- Another application already using the required port.
+- Incorrect host-to-container port mapping.
 
-Resolution:
+### Resolution
 
-- Stopped the conflicting service or changed the host port mapping.
+- Identified the conflicting process.
+- Updated the port mapping in the `docker-compose.yml` file when necessary.
+- Restarted the application stack.
 
 ---
 
 ## Database Connection Errors
 
-Possible causes:
+### Possible Causes
 
-- MongoDB not fully initialized.
-- Incorrect connection string.
+- MongoDB service not fully initialized.
+- Incorrect database connection string.
 - Invalid credentials.
 
-Resolution:
+### Resolution
 
-- Reviewed logs.
+- Waited for MongoDB to finish starting.
+- Reviewed container logs.
 - Verified environment variables.
-- Confirmed service startup order.
+- Confirmed the Node.js application referenced the MongoDB service by its Docker Compose service name.
 
 ---
 
-# Docker Compose Best Practices
+## Image Pull Issues
 
-The following practices were applied throughout this project.
+### Possible Causes
 
-- Keep each service focused on a single responsibility.
-- Use descriptive service names.
-- Store configuration in environment variables.
-- Document exposed ports.
-- Verify services after deployment.
-- Review logs regularly.
-- Use Docker Compose for local development and testing.
-- Keep the Compose file under version control.
-- Organize project documentation for reproducibility.
+- Internet connectivity problems.
+- Incorrect image names or tags.
+
+### Resolution
+
+- Verified the image names in the Compose file.
+- Pulled the required images again.
+- Confirmed Docker Hub connectivity.
+
+---
+
+# Best Practices Applied
+
+The following best practices were followed throughout the project:
+
+- Use one service for one responsibility.
+- Keep the `docker-compose.yml` file organized and readable.
+- Use meaningful service names.
+- Store configuration values as environment variables.
+- Verify containers after deployment.
+- Review logs when troubleshooting.
+- Use Docker Compose for repeatable deployments.
+- Keep project documentation up to date.
+- Maintain screenshots as implementation evidence.
+- Store the project under version control using Git.
+
+---
+
+# Key Takeaways
+
+This project reinforced several important DevOps concepts.
+
+### Docker Compose
+
+- Multi-container orchestration
+- Declarative infrastructure
+- Simplified deployments
+
+### Docker Networking
+
+- Automatic bridge network creation
+- Internal DNS
+- Container communication
+
+### Container Management
+
+- Service lifecycle management
+- Log inspection
+- Resource inspection
+- Interactive debugging
+
+### Application Architecture
+
+- Separation of concerns
+- Backend and database communication
+- Multi-service application design
+
+### Documentation
+
+- Technical documentation
+- Architecture diagrams
+- Implementation walkthroughs
+- Reproducible engineering workflows
 
 ---
 
 # Future Improvements
 
-Potential enhancements include:
+Possible enhancements for this project include:
 
-- Adding persistent Docker volumes for MongoDB.
-- Introducing health checks for each service.
-- Using Docker Compose profiles for different environments.
-- Adding a reverse proxy (such as Nginx).
-- Integrating automated testing.
-- Deploying the stack through a CI/CD pipeline.
-- Publishing custom images to a private registry.
-- Migrating the application to Kubernetes for orchestration at scale.
+- Add persistent Docker volumes for MongoDB data.
+- Store sensitive configuration using Docker Secrets.
+- Implement health checks for all services.
+- Add an Nginx reverse proxy.
+- Introduce automated testing.
+- Build custom Docker images instead of using public images where appropriate.
+- Integrate the project into a CI/CD pipeline.
+- Deploy the application to a cloud platform.
+- Migrate the application to Kubernetes for production-scale orchestration.
 
 ---
 
-# References
+# Lessons Learned
 
-Useful resources for further learning:
+Completing this project provided valuable practical experience with Docker Compose and multi-container application development.
 
-- Docker Documentation
-- Docker Compose Documentation
-- MongoDB Documentation
-- Mongo Express Documentation
-- Node.js Documentation
-- AWS EC2 Documentation
+Some of the most important lessons learned include:
+
+- Docker Compose greatly simplifies multi-container deployments.
+- Containers communicate efficiently through Docker's built-in networking.
+- Service discovery eliminates the need to manage container IP addresses manually.
+- Environment variables separate configuration from application code.
+- Logs are essential for diagnosing application and container issues.
+- Well-structured documentation improves project maintainability and reproducibility.
+
+These lessons reinforce core DevOps practices that are applicable to both local development and production environments.
 
 ---
 
 # Project Summary
 
-This project demonstrates how Docker Compose simplifies the deployment and management of a multi-container application by defining all required services in a single configuration file. Through automatic networking, service discovery, and centralized orchestration, Docker Compose provides a repeatable and maintainable workflow for running interconnected services.
+This project demonstrates how Docker Compose simplifies the deployment and management of a multi-container application by defining all required services in a single configuration file.
 
-By deploying a Node.js application, MongoDB database, and Mongo Express interface on AWS, this project reinforces practical skills in container orchestration, networking, troubleshooting, and infrastructure documentation—core competencies for modern DevOps and cloud engineering.
+Using Docker Compose, I successfully orchestrated a Node.js application, MongoDB database, and Mongo Express administration interface while exploring key concepts such as container networking, service discovery, environment variable management, and container lifecycle management.
+
+Beyond deploying the application, this project strengthened my understanding of how multiple services work together as a cohesive application stack and highlighted the importance of automation, reproducibility, and clear technical documentation in modern software engineering.
+
+---
+
+## Evidence of Completion
+
+This repository includes:
+
+- Architecture diagram
+- Docker Compose configuration
+- Deployment walkthrough
+- Running container verification
+- Docker networking verification
+- Application screenshots
+- Mongo Express verification
+- Docker logs
+
+---
+
+# References
+
+The following resources were used throughout this project:
+
+- Docker Documentation
+- Docker Compose Documentation
+- Node.js Documentation
+- MongoDB Documentation
+- Mongo Express Documentation
+- Git Documentation
 
 ---
 
 # Connect With Me
 
-If you found this repository helpful or would like to discuss Docker, DevOps, Cloud Engineering, or Infrastructure Automation, feel free to connect.
+If you found this project helpful or would like to discuss Docker, DevOps, Cloud Engineering, or Infrastructure Automation, feel free to connect with me.
 
 - **GitHub:** https://github.com/Chukwuemeka-Peter-Eze
 - **LinkedIn:** https://www.linkedin.com/in/chukwuemekapetereze/
 - **Notion:** https://lumpy-bubble-7b0.notion.site/Containers-with-Docker-3a546a96f97480a88041ff2ff82a6b5f?source=copy_link
 
 If you found this repository useful, consider giving it a ⭐ to support the project.
+
+---
+
+# License
+
+This project is licensed under the MIT License.
+
+See the `LICENSE` file for more information.
 
 ---

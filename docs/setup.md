@@ -1,223 +1,42 @@
-# Project Setup Guide
+# Setup Guide
 
-This guide provides a step-by-step walkthrough for deploying the multi-container application on an AWS EC2 instance using Docker Compose.
+## Overview
 
-The deployment includes:
+This document provides a step-by-step guide for setting up and running the Docker Compose multi-container application on a local development machine.
+
+The application consists of three services:
 
 - Node.js Application
 - MongoDB Database
 - Mongo Express
-- Docker Compose
-- Docker Networking
 
-By following this guide, the complete application stack can be reproduced consistently in any compatible environment.
-
----
-
-# Table of Contents
-
-- Solution Architecture
-- Prerequisites
-- AWS Infrastructure
-- Launch EC2 Instance
-- Connect to EC2
-- Install Docker
-- Install Docker Compose
-- Verify Installation
-- Clone Repository
-- Review Project Structure
-- Review docker-compose.yml
-- Deploy Application Stack
-- Verify Containers
-- Verify Docker Network
-- Verify MongoDB
-- Verify Mongo Express
-- Verify Node.js Application
-- Monitor Services
-- Stop the Stack
-- Restart the Stack
-- Remove the Stack
-- Cleanup
-- Deployment Checklist
-- Summary
-
----
-
-# Solution Architecture
-
-The deployment follows the workflow below.
-
-```text
-Developer
-     │
-     ▼
-GitHub Repository
-     │
-     ▼
-AWS EC2 Instance
-     │
-     ▼
-Ubuntu Linux
-     │
-     ▼
-Docker Engine
-     │
-     ▼
-Docker Compose
-     │
- ┌───┼────────────────────┐
- ▼   ▼                    ▼
-Node.js              MongoDB         Mongo Express
- │                      │                  │
- └──────────── Docker Network ─────────────┘
-                │
-                ▼
-          Web Browser
-```
-
-Docker Compose manages the complete application lifecycle while automatically creating the network required for service-to-service communication.
+Docker Compose orchestrates these services using a single configuration file, simplifying deployment and lifecycle management.
 
 ---
 
 # Prerequisites
 
-Before beginning, ensure the following are available.
+Before starting, ensure the following software is installed.
 
-- AWS Account
-- Amazon EC2 Instance
-- Ubuntu Linux Server
-- SSH Client
-- Docker Engine
-- Docker Compose
-- Git
-- Internet Connection
-- Web Browser
+| Requirement | Purpose |
+|-------------|---------|
+| Docker Desktop (or Docker Engine) | Container runtime |
+| Docker Compose | Multi-container orchestration |
+| Git | Version control |
+| Web Browser | Accessing the application |
+| Visual Studio Code (Optional) | Editing project files |
 
 ---
 
-# AWS Infrastructure
+# Clone the Repository
 
-The project was deployed using the following cloud resources.
-
-| Component | Description |
-|-----------|-------------|
-| Cloud Provider | Amazon Web Services |
-| Compute | Amazon EC2 |
-| Operating System | Ubuntu Linux |
-| Container Runtime | Docker Engine |
-| Orchestration | Docker Compose |
-| Application | Node.js |
-| Database | MongoDB |
-| Database UI | Mongo Express |
-| Source Control | GitHub |
-
----
-
-# Step 1 — Launch an EC2 Instance
-
-Provision an Ubuntu EC2 instance.
-
-Recommended configuration:
-
-- Ubuntu Server LTS
-- Public IP Enabled
-- SSH Enabled
-- Internet Gateway Access
-- Security Group Configured
-
-Recommended inbound ports.
-
-| Port | Purpose |
-|------|----------|
-| 22 | SSH |
-| 3000 | Node.js Application |
-| 8081 | Mongo Express |
-
----
-
-# Step 2 — Connect to the Server
-
-Connect via SSH.
-
-```bash
-ssh -i your-key.pem ubuntu@<EC2-Public-IP>
-```
-
-Verify connectivity before proceeding.
-
----
-
-# Step 3 — Update the Operating System
-
-```bash
-sudo apt update
-
-sudo apt upgrade -y
-```
-
-Keeping packages updated improves compatibility and security.
-
----
-
-# Step 4 — Install Docker
-
-Install Docker Engine.
-
-After installation verify:
-
-```bash
-docker --version
-```
-
-Example:
-
-```text
-Docker version xx.x.x
-```
-
----
-
-# Step 5 — Install Docker Compose
-
-Verify Docker Compose.
-
-```bash
-docker compose version
-```
-
-Expected output:
-
-```text
-Docker Compose version v2.x.x
-```
-
----
-
-# Step 6 — Verify Docker Engine
-
-```bash
-docker info
-```
-
-Verify:
-
-- Docker Engine running
-- Storage driver
-- Images
-- Containers
-- Available resources
-
----
-
-# Step 7 — Clone the Repository
-
-Clone the project.
+Clone the project to your local machine.
 
 ```bash
 git clone https://github.com/Chukwuemeka-Peter-Eze/Docker-compose-multi-container.git
 ```
 
-Move into the project directory.
+Navigate into the project directory.
 
 ```bash
 cd Docker-compose-multi-container
@@ -225,57 +44,52 @@ cd Docker-compose-multi-container
 
 ---
 
-# Step 8 — Verify Repository Structure
+# Verify the Project Structure
 
-Example layout.
+Confirm that the required project files are present.
 
-```text
-Docker-compose-multi-container/
-
-docker-compose.yml
-
-README.md
-
-commands.md
-
-docs/
-
-images/
-
-app/
+```bash
+ls
 ```
 
-Confirm all required files exist before deployment.
+Expected files include:
+
+```text
+README.md
+docker-compose.yml
+app/
+docs/
+images/
+architecture/
+LICENSE
+```
 
 ---
 
-# Step 9 — Review the Compose Configuration
+# Review the Docker Compose Configuration
 
-Display the configuration.
+Inspect the Docker Compose configuration before deployment.
 
 ```bash
 cat docker-compose.yml
 ```
 
-Validate the configuration.
+Review the following sections:
 
-```bash
-docker compose config
-```
+- Services
+- Images
+- Environment variables
+- Port mappings
+- Networks
+- Restart policies
 
-Verify that:
-
-- Services are defined correctly.
-- Port mappings are valid.
-- Environment variables are configured.
-- Networks are created.
-- Container names are meaningful.
+Understanding the configuration before deployment helps identify potential issues and provides insight into how the application stack is organized.
 
 ---
 
-# Step 10 — Deploy the Application Stack
+# Start the Application Stack
 
-Start every service.
+Launch all services in detached mode.
 
 ```bash
 docker compose up -d
@@ -283,143 +97,189 @@ docker compose up -d
 
 Docker Compose automatically:
 
-- Creates the application network
-- Downloads required images
-- Creates containers
-- Configures networking
-- Starts every service
+- Reads the configuration file.
+- Pulls required images.
+- Creates the application network.
+- Creates containers.
+- Starts every service.
 
-Unlike individual Docker commands, one command deploys the complete application.
+Verify that the deployment completed successfully before proceeding.
 
 ---
 
-# Step 11 — Verify Running Services
+# Verify Running Containers
 
-Display the services.
-
-```bash
-docker compose ps
-```
-
-Or
+Display all running containers.
 
 ```bash
 docker ps
 ```
 
-Verify:
+Confirm that the following containers are running:
 
-- Node.js running
-- MongoDB running
-- Mongo Express running
+- Node.js Application
+- MongoDB
+- Mongo Express
 
-Check container names, uptime, and exposed ports.
+Review:
+
+- Container names
+- Running status
+- Published ports
 
 ---
 
-# Step 12 — Verify Docker Network
+# Verify Docker Compose Services
 
-Display available Docker networks.
+Display the services managed by Docker Compose.
+
+```bash
+docker compose ps
+```
+
+Verify that each service is healthy and running.
+
+---
+
+# Verify Docker Networks
+
+List available Docker networks.
 
 ```bash
 docker network ls
 ```
 
-Inspect the Compose network.
+Identify the network created by Docker Compose.
+
+Inspect the network.
 
 ```bash
 docker network inspect <network-name>
 ```
 
-Verify that:
+Replace `<network-name>` with the actual network name.
 
-- Node.js is connected.
-- MongoDB is connected.
-- Mongo Express is connected.
-
-Docker Compose should automatically configure service discovery between these containers.
+Verify that all application containers are connected to the same network.
 
 ---
 
-# Step 13 — Verify MongoDB
+# Access the Node.js Application
 
-Confirm the MongoDB container is healthy.
+Open your web browser and navigate to the application's published port.
 
-```bash
-docker compose logs mongodb
+Example:
+
+```text
+http://localhost:3000
 ```
 
-Review startup messages for successful initialization and ensure no critical errors are reported.
+> Replace the port if your Docker Compose configuration uses a different value.
+
+Successful access confirms that:
+
+- The Node.js application is running.
+- Port forwarding is functioning correctly.
+- The application is reachable from the host machine.
 
 ---
 
-# Step 14 — Verify Mongo Express
+# Access Mongo Express
 
-Open a browser and navigate to the Mongo Express interface using your EC2 public IP address and the configured host port.
+Open Mongo Express in your browser.
+
+Example:
+
+```text
+http://localhost:8081
+```
+
+> Replace the port if necessary.
 
 Verify that:
 
-- The interface loads successfully.
-- MongoDB is reachable.
-- Databases and collections are visible.
+- Mongo Express loads successfully.
+- MongoDB is accessible.
+- The database interface is operational.
 
 ---
 
-# Step 15 — Verify the Node.js Application
+# View Container Logs
 
-Open the application in a browser using your EC2 public IP address and the configured application port.
-
-Successful access confirms:
-
-- The Node.js container is operational.
-- Networking is functioning correctly.
-- The application can communicate with MongoDB.
-
----
-
-# Step 16 — Monitor the Application
-
-Display service logs.
+Inspect logs from all services.
 
 ```bash
 docker compose logs
 ```
 
-Follow logs continuously.
+Inspect logs for a specific service.
+
+```bash
+docker compose logs node-app
+```
+
+```bash
+docker compose logs mongodb
+```
+
+```bash
+docker compose logs mongo-express
+```
+
+Follow logs in real time.
 
 ```bash
 docker compose logs -f
 ```
 
-Monitor the running containers.
-
-```bash
-docker stats
-```
-
-Inspect the application container.
-
-```bash
-docker inspect node-app
-```
-
-These commands assist with troubleshooting and operational monitoring.
+Logs help verify successful startup and diagnose runtime issues.
 
 ---
 
-# Step 17 — Stop the Application
+# Access Running Containers
 
-Stop every service.
+Open an interactive shell inside a running container.
+
+Node.js
 
 ```bash
-docker compose stop
+docker exec -it node-app sh
 ```
 
-Containers remain available and can be started again later.
+MongoDB
+
+```bash
+docker exec -it mongodb bash
+```
+
+Mongo Express
+
+```bash
+docker exec -it mongo-express sh
+```
+
+Interactive access is useful for troubleshooting and inspecting the running environment.
 
 ---
 
-# Step 18 — Restart the Stack
+# Stop the Application
+
+Stop all running services.
+
+```bash
+docker compose down
+```
+
+This command:
+
+- Stops every container.
+- Removes the containers.
+- Removes the Docker Compose network.
+
+By default, Docker volumes are preserved.
+
+---
+
+# Restart the Application
 
 Restart all services.
 
@@ -427,29 +287,17 @@ Restart all services.
 docker compose restart
 ```
 
-This applies configuration changes that do not require rebuilding images.
+This command restarts every service defined in the Docker Compose configuration.
 
 ---
 
-# Step 19 — Remove the Stack
+# Clean Up
 
-Shut down the application.
+Remove the application stack.
 
 ```bash
 docker compose down
 ```
-
-To remove associated volumes as well.
-
-```bash
-docker compose down -v
-```
-
-Use the second command only when persistent data is no longer required.
-
----
-
-# Step 20 — Cleanup
 
 Remove unused Docker resources.
 
@@ -457,45 +305,23 @@ Remove unused Docker resources.
 docker system prune
 ```
 
-To remove all unused images.
-
-```bash
-docker system prune -a
-```
-
-Remove unused volumes.
-
-```bash
-docker volume prune
-```
-
-Regular cleanup helps maintain available disk space.
-
----
-
-# Deployment Verification Checklist
-
-Confirm the following after deployment.
-
-- EC2 instance is running.
-- Docker Engine is installed.
-- Docker Compose is installed.
-- Repository cloned successfully.
-- Compose configuration validated.
-- Application stack deployed.
-- Node.js container running.
-- MongoDB container running.
-- Mongo Express container running.
-- Docker network created.
-- Mongo Express accessible.
-- Node.js application accessible.
-- Logs available.
-- No critical errors reported.
+> **Note:** Review the resources that will be removed before confirming the command.
 
 ---
 
 # Summary
 
-This guide demonstrates how Docker Compose simplifies the deployment of a multi-container application by treating related services as a single application stack. Using one configuration file and a small set of commands, the Node.js application, MongoDB database, and Mongo Express interface can be deployed, managed, monitored, and removed consistently.
+By following this guide, you have:
 
-The workflow emphasizes repeatability, automation, service orchestration, and operational simplicity, providing a solid foundation for more advanced container orchestration platforms and cloud-native application deployments.
+- Cloned the repository.
+- Reviewed the Docker Compose configuration.
+- Started the multi-container application.
+- Verified container status.
+- Confirmed Docker networking.
+- Accessed the Node.js application.
+- Accessed Mongo Express.
+- Viewed container logs.
+- Managed the application lifecycle.
+- Cleaned up Docker resources.
+
+This setup process provides a repeatable workflow for deploying and managing the application using Docker Compose.

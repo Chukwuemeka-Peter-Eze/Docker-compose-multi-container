@@ -1,109 +1,190 @@
-# Docker Compose Commands Reference
+# Docker Compose Command Reference
 
-This document contains the Docker Compose commands used throughout this project, along with explanations of their purpose and common use cases.
+## Overview
 
----
-
-# Table of Contents
-
-- Verify Docker Compose
-- Validate Compose File
-- Start Services
-- Stop Services
-- Restart Services
-- View Running Services
-- View Logs
-- Build Services
-- Pull Images
-- Remove Services
-- Inspect Networks
-- Inspect Volumes
-- Execute Commands Inside Containers
-- Monitor Containers
-- Cleanup Commands
-- Command Summary
+This document contains the Docker and Docker Compose commands used throughout this project, along with a brief explanation of each command.
 
 ---
 
-# Verify Docker Compose Installation
+# Verify Docker Installation
 
-Verify Docker Compose is installed correctly.
+Display the installed Docker version.
+
+```bash
+docker --version
+```
+
+Display the installed Docker Compose version.
 
 ```bash
 docker compose version
 ```
 
-Example Output
+Display Docker system information.
 
-```text
-Docker Compose version v2.x.x
+```bash
+docker info
 ```
 
 ---
 
-# Validate the Compose File
+# Clone the Repository
 
-Check that the docker-compose.yml file is valid.
+Clone the GitHub repository.
+
+```bash
+git clone https://github.com/Chukwuemeka-Peter-Eze/Docker-compose-multi-container.git
+```
+
+Navigate into the project directory.
+
+```bash
+cd Docker-compose-multi-container
+```
+
+---
+
+# View Project Files
+
+List files in the current directory.
+
+```bash
+ls
+```
+
+Display the current working directory.
+
+```bash
+pwd
+```
+
+---
+
+# Review the Compose File
+
+Display the contents of the Docker Compose configuration.
+
+```bash
+cat docker-compose.yml
+```
+
+Validate the Docker Compose configuration.
 
 ```bash
 docker compose config
 ```
 
-Purpose
-
-- Validates syntax
-- Merges configuration
-- Displays final configuration
-- Detects YAML errors
-
 ---
 
-# Start the Application Stack
+# Deploy the Application
 
-Start every service defined in docker-compose.yml.
-
-```bash
-docker compose up
-```
-
-Docker Compose automatically:
-
-- Creates the network
-- Pulls images
-- Creates containers
-- Starts services
-
----
-
-# Start in Detached Mode
+Start all services in detached mode.
 
 ```bash
 docker compose up -d
 ```
 
-Runs every service in the background.
-
----
-
-# Stop the Application
+Start all services in the foreground.
 
 ```bash
-docker compose stop
+docker compose up
 ```
 
-Stops every running service while preserving containers.
+Rebuild images before starting.
+
+```bash
+docker compose up --build
+```
 
 ---
 
-# Restart the Application
+# View Running Services
+
+Display Docker Compose services.
+
+```bash
+docker compose ps
+```
+
+Display running containers.
+
+```bash
+docker ps
+```
+
+Display all containers, including stopped containers.
+
+```bash
+docker ps -a
+```
+
+---
+
+# View Logs
+
+Display logs for every service.
+
+```bash
+docker compose logs
+```
+
+Follow logs in real time.
+
+```bash
+docker compose logs -f
+```
+
+Display logs for the Node.js application.
+
+```bash
+docker compose logs node-app
+```
+
+Display logs for MongoDB.
+
+```bash
+docker compose logs mongodb
+```
+
+Display logs for Mongo Express.
+
+```bash
+docker compose logs mongo-express
+```
+
+---
+
+# Access Containers
+
+Open a shell inside the Node.js container.
+
+```bash
+docker exec -it node-app sh
+```
+
+Open a shell inside the MongoDB container.
+
+```bash
+docker exec -it mongodb bash
+```
+
+Open a shell inside the Mongo Express container.
+
+```bash
+docker exec -it mongo-express sh
+```
+
+---
+
+# Restart Services
+
+Restart every service.
 
 ```bash
 docker compose restart
 ```
 
-Restarts all services.
-
-Restart a single service.
+Restart a specific service.
 
 ```bash
 docker compose restart mongodb
@@ -111,189 +192,79 @@ docker compose restart mongodb
 
 ---
 
-# Shut Down the Stack
+# Stop the Application
+
+Stop all running services.
+
+```bash
+docker compose stop
+```
+
+Stop and remove the application stack.
 
 ```bash
 docker compose down
 ```
 
-Removes:
-
-- Containers
-- Networks
-
-Volumes remain unless explicitly removed.
-
----
-
-# Remove Everything
+Stop and remove containers, networks, and volumes.
 
 ```bash
 docker compose down -v
 ```
 
-Removes:
-
-- Containers
-- Networks
-- Volumes
-
 ---
 
-# View Running Services
+# Docker Networks
 
-```bash
-docker compose ps
-```
-
-Displays:
-
-- Service names
-- Container names
-- Ports
-- Current status
-
----
-
-# View Docker Containers
-
-```bash
-docker ps
-```
-
-Lists every running container.
-
----
-
-# View Logs
-
-Display logs from every service.
-
-```bash
-docker compose logs
-```
-
----
-
-# View Logs for One Service
-
-MongoDB
-
-```bash
-docker compose logs mongodb
-```
-
-Mongo Express
-
-```bash
-docker compose logs mongo-express
-```
-
-Node.js
-
-```bash
-docker compose logs node-app
-```
-
----
-
-# Follow Logs
-
-```bash
-docker compose logs -f
-```
-
-Displays log output in real time.
-
----
-
-# Build Images
-
-Rebuild every service.
-
-```bash
-docker compose build
-```
-
-Rebuild one service.
-
-```bash
-docker compose build node-app
-```
-
----
-
-# Pull Latest Images
-
-```bash
-docker compose pull
-```
-
-Downloads the latest images defined in the Compose file.
-
----
-
-# Execute Commands Inside a Container
-
-Node.js
-
-```bash
-docker exec -it node-app sh
-```
-
-MongoDB
-
-```bash
-docker exec -it mongodb bash
-```
-
-Mongo Express
-
-```bash
-docker exec -it mongo-express sh
-```
-
-Useful for:
-
-- Debugging
-- File inspection
-- Running commands
-- Verifying configuration
-
----
-
-# List Docker Networks
+List Docker networks.
 
 ```bash
 docker network ls
 ```
 
----
-
-# Inspect Docker Network
+Inspect a Docker network.
 
 ```bash
 docker network inspect <network-name>
 ```
 
-Displays:
+---
 
-- Connected containers
-- IP addresses
-- Network driver
-- Subnet
+# Docker Images
+
+List local images.
+
+```bash
+docker images
+```
+
+Remove an image.
+
+```bash
+docker rmi <image-name>
+```
+
+Pull an image manually.
+
+```bash
+docker pull mongo
+```
+
+```bash
+docker pull mongo-express
+```
 
 ---
 
-# List Docker Volumes
+# Docker Volumes
+
+List Docker volumes.
 
 ```bash
 docker volume ls
 ```
 
----
-
-# Inspect Docker Volume
+Inspect a Docker volume.
 
 ```bash
 docker volume inspect <volume-name>
@@ -301,139 +272,74 @@ docker volume inspect <volume-name>
 
 ---
 
-# Inspect a Service
+# Inspect Docker Resources
+
+Inspect a container.
 
 ```bash
 docker inspect node-app
 ```
 
-Shows detailed configuration including:
-
-- Environment variables
-- Ports
-- Networks
-- Mounts
-- Labels
-
----
-
-# Display Resource Usage
+Inspect MongoDB.
 
 ```bash
-docker stats
+docker inspect mongodb
 ```
 
-Monitor:
-
-- CPU usage
-- Memory usage
-- Network traffic
-- Disk I/O
-
----
-
-# View Running Processes
+Inspect Mongo Express.
 
 ```bash
-docker top node-app
-```
-
-Displays running processes inside the container.
-
----
-
-# Remove Unused Containers
-
-```bash
-docker container prune
+docker inspect mongo-express
 ```
 
 ---
 
-# Remove Unused Images
+# Resource Cleanup
 
-```bash
-docker image prune
-```
-
----
-
-# Remove Unused Volumes
-
-```bash
-docker volume prune
-```
-
----
-
-# Remove Unused Networks
-
-```bash
-docker network prune
-```
-
----
-
-# Remove Everything Unused
+Remove unused Docker resources.
 
 ```bash
 docker system prune
 ```
 
-Remove all unused resources.
+Remove unused Docker resources, including unused images.
 
 ```bash
 docker system prune -a
 ```
 
+> **Note:** Review the resources that will be removed before confirming the command.
+
 ---
 
-# Typical Workflow
+# Git Commands
+
+Check repository status.
 
 ```bash
-docker compose up -d
-
-docker compose ps
-
-docker compose logs
-
-docker compose logs -f
-
-docker compose restart
-
-docker compose down
+git status
 ```
 
-This represents the standard operational workflow used throughout this project.
+Stage all changes.
+
+```bash
+git add .
+```
+
+Commit changes.
+
+```bash
+git commit -m "Add Docker Compose project documentation"
+```
+
+Push changes to GitHub.
+
+```bash
+git push origin main
+```
 
 ---
 
-# Command Summary
+# Summary
 
-| Command | Purpose |
-|----------|---------|
-| docker compose version | Verify Compose installation |
-| docker compose config | Validate Compose file |
-| docker compose up | Start services |
-| docker compose up -d | Start services in background |
-| docker compose stop | Stop services |
-| docker compose restart | Restart services |
-| docker compose down | Stop and remove services |
-| docker compose down -v | Remove services and volumes |
-| docker compose ps | View services |
-| docker compose logs | View logs |
-| docker compose logs -f | Follow logs |
-| docker compose build | Build images |
-| docker compose pull | Pull images |
-| docker network ls | List networks |
-| docker network inspect | Inspect network |
-| docker volume ls | List volumes |
-| docker volume inspect | Inspect volume |
-| docker stats | Monitor resource usage |
-| docker system prune | Clean Docker resources |
-
----
-
-# Conclusion
-
-Docker Compose simplifies the deployment and management of multi-container applications by providing a single interface for building, starting, monitoring, and maintaining interconnected services. Mastering these commands is essential for developing, troubleshooting, and operating containerized application stacks efficiently.
+These commands cover the complete workflow for this project, from verifying the environment and deploying the application to troubleshooting, inspecting Docker resources, and cleaning up the system. Keeping them in one place provides a convenient reference for future projects and reinforces familiarity with the Docker Compose command-line interface.
