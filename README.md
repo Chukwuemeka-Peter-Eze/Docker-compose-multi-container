@@ -197,9 +197,6 @@ Docker-compose-multi-container
 ├── app/
 │   └── Node.js Application
 │
-├── architecture/
-│   └── architecture.drawio
-│
 ├── docs/
 │   ├── setup.md
 │   ├── networking.md
